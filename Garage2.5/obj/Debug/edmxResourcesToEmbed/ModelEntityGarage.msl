@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="EntitiesGarageConnection">
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Members)">
+        <MappingFragment StoreEntitySet="Members">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicles">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Vehicles)">
+        <MappingFragment StoreEntitySet="Vehicles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RegNr" ColumnName="RegNr" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Wheel" ColumnName="Wheel" />
+          <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+          <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="VehicleType_Id" ColumnName="VehicleType_Id" />
+          <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehicleTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VehicleTypes)">
+        <MappingFragment StoreEntitySet="VehicleTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="C__MigrationHistory1Set">
+      <EntityTypeMapping TypeName="Model.C__MigrationHistory1">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="C__MigrationHistory11Set">
+      <EntityTypeMapping TypeName="Model.C__MigrationHistory11">
+        <MappingFragment StoreEntitySet="C__MigrationHistory">
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

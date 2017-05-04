@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegNr" Type="nvarchar(max)" />
+          <Property Name="Model" Type="nvarchar(max)" />
+          <Property Name="Wheel" Type="int" Nullable="false" />
+          <Property Name="CheckInTime" Type="datetime" Nullable="false" />
+          <Property Name="CheckOutTime" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="VehicleType_Id" Type="int" />
+          <Property Name="Member_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="VehicleTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_Vehicles_dbo_Members_Member_Id">
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Member_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id">
+          <End Role="VehicleTypes" Type="Self.VehicleTypes" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleType_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleTypes" EntityType="Self.VehicleTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Vehicles_dbo_Members_Member_Id" Association="Self.FK_dbo_Vehicles_dbo_Members_Member_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id" Association="Self.FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Vehicle_Id" Type="Int32" />
+          <NavigationProperty Name="Vehicles1" Relationship="Model.FK_dbo_Vehicles_dbo_Members_Member_Id" FromRole="Members" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegNr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Wheel" Type="Int32" Nullable="false" />
+          <Property Name="CheckInTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CheckOutTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="VehicleType_Id" Type="Int32" />
+          <NavigationProperty Name="VehicleTypes" Relationship="Self.FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id" FromRole="Vehicles" ToRole="VehicleTypes" />
+          <Property Name="Member_Id" Type="Int32" />
+          <NavigationProperty Name="Members1" Relationship="Model.FK_dbo_Vehicles_dbo_Members_Member_Id" FromRole="Vehicles" ToRole="Members" />
+        </EntityType>
+        <EntityType Name="VehicleTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Vehicles" Relationship="Self.FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id" FromRole="VehicleTypes" ToRole="Vehicles" />
+        </EntityType>
+        <Association Name="FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id">
+          <End Role="VehicleTypes" Type="Self.VehicleTypes" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleType_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntitiesGarageConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Members" EntityType="Self.Members" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" />
+          <EntitySet Name="VehicleTypes" EntityType="Self.VehicleTypes" />
+          <AssociationSet Name="FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id" Association="Self.FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Vehicles_dbo_Members_Member_Id" Association="Model.FK_dbo_Vehicles_dbo_Members_Member_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <EntitySet Name="C__MigrationHistory1Set" EntityType="Model.C__MigrationHistory1" />
+          <EntitySet Name="C__MigrationHistory11Set" EntityType="Model.C__MigrationHistory11" />
+        </EntityContainer>
+        <Association Name="FK_dbo_Vehicles_dbo_Members_Member_Id">
+          <End Type="Model.Members" Role="Members" Multiplicity="0..1" />
+          <End Type="Model.Vehicles" Role="Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Member_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="C__MigrationHistory1">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="C__MigrationHistory11">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="EntitiesGarageConnection">
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Members)">
+        <MappingFragment StoreEntitySet="Members">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicles">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Vehicles)">
+        <MappingFragment StoreEntitySet="Vehicles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RegNr" ColumnName="RegNr" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Wheel" ColumnName="Wheel" />
+          <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+          <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="VehicleType_Id" ColumnName="VehicleType_Id" />
+          <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehicleTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VehicleTypes)">
+        <MappingFragment StoreEntitySet="VehicleTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory1Set">
+            <EntityTypeMapping TypeName="Model.C__MigrationHistory1">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory11Set">
+            <EntityTypeMapping TypeName="Model.C__MigrationHistory11">
+              <MappingFragment StoreEntitySet="C__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

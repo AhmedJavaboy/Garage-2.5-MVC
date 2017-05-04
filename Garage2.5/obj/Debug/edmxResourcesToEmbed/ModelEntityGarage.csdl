@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Members">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Vehicle_Id" Type="Int32" />
+    <NavigationProperty Name="Vehicles1" Relationship="Model.FK_dbo_Vehicles_dbo_Members_Member_Id" FromRole="Members" ToRole="Vehicles" />
+  </EntityType>
+  <EntityType Name="Vehicles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RegNr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Brand" Type="Int32" Nullable="false" />
+    <Property Name="Model" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Wheel" Type="Int32" Nullable="false" />
+    <Property Name="CheckInTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CheckOutTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="VehicleType_Id" Type="Int32" />
+    <NavigationProperty Name="VehicleTypes" Relationship="Self.FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id" FromRole="Vehicles" ToRole="VehicleTypes" />
+    <Property Name="Member_Id" Type="Int32" />
+    <NavigationProperty Name="Members1" Relationship="Model.FK_dbo_Vehicles_dbo_Members_Member_Id" FromRole="Vehicles" ToRole="Members" />
+  </EntityType>
+  <EntityType Name="VehicleTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Vehicles" Relationship="Self.FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id" FromRole="VehicleTypes" ToRole="Vehicles" />
+  </EntityType>
+  <Association Name="FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id">
+    <End Role="VehicleTypes" Type="Self.VehicleTypes" Multiplicity="0..1" />
+    <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VehicleTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehicles">
+        <PropertyRef Name="VehicleType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EntitiesGarageConnection" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Members" EntityType="Self.Members" />
+    <EntitySet Name="Vehicles" EntityType="Self.Vehicles" />
+    <EntitySet Name="VehicleTypes" EntityType="Self.VehicleTypes" />
+    <AssociationSet Name="FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id" Association="Self.FK_dbo_Vehicles_dbo_VehicleTypes_VehicleType_Id">
+      <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+      <End Role="Vehicles" EntitySet="Vehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Vehicles_dbo_Members_Member_Id" Association="Model.FK_dbo_Vehicles_dbo_Members_Member_Id">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Vehicles" EntitySet="Vehicles" />
+    </AssociationSet>
+    <EntitySet Name="C__MigrationHistory1Set" EntityType="Model.C__MigrationHistory1" />
+    <EntitySet Name="C__MigrationHistory11Set" EntityType="Model.C__MigrationHistory11" />
+  </EntityContainer>
+  <Association Name="FK_dbo_Vehicles_dbo_Members_Member_Id">
+    <End Type="Model.Members" Role="Members" Multiplicity="0..1" />
+    <End Type="Model.Vehicles" Role="Vehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehicles">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="C__MigrationHistory1">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="C__MigrationHistory11">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>
